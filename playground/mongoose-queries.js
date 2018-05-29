@@ -39,6 +39,10 @@ let id = '55b0ccae260997123784c4f11';
 const userID = '5b0a072c033986244a5a89c9';
 
 User.findById(userID).then((user) => {
+  if (!user) {
+    return console.log(`User not found`);
+  }
+
   console.log({'User': user});
 }, (e) => {
   return console.log(`There was an error finding users`, e);
