@@ -1,14 +1,12 @@
 require('./config/config');
 
 const _ = require('lodash');
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
-
-
 let {mongoose} = require('./db/mongoose');
 
+let {authenticate} = require('./middleware/autheticate')
 let {Todo} =require('./models/todo');
 let {User} =require('./models/user');
 
@@ -126,6 +124,10 @@ app.post('/users', (req, res) => {
   }).catch((e) => {
     res.status(400).send(e);
   })
+});
+
+app.get(`/users/me`, authenticate, (req, res) => {
+  res.send(req.user);
 });
 
 
