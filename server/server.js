@@ -1,3 +1,5 @@
+require('./config/config');
+
 const _ = require('lodash');
 
 const express = require('express');
@@ -11,7 +13,7 @@ let {Todo} =require('./models/todo');
 let {User} =require('./models/user');
 
 let app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
@@ -110,10 +112,6 @@ app.patch(`/todos/:id`, (req, res) => {
    }).catch(()=>{
      res.status(400).send();
    })
-
-
-
-
 });
 
 
