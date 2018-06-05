@@ -48,9 +48,6 @@ UserSchema.methods.generateAuthToken = function () {
 
 
   user.tokens = user.tokens.concat([{access, token}]);
-  console.log('token', token);
-  console.log(user.tokens);
-  console.log(user);
 
   return user.save().then(() => {
     return token;
@@ -64,7 +61,6 @@ UserSchema.statics.findByToken = function (token) {
 
   try {
     decoded = jwt.verify(token, 'abc123')
-    console.log(decoded);
   } catch (e){
     return Promise.reject();
   }
