@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 let {mongoose} = require('./db/mongoose');
 
-let {authenticate} = require('./middleware/autheticate')
+let {authenticate} = require('./middleware/authenticate')
 let {Todo} =require('./models/todo');
 let {User} =require('./models/user');
 
@@ -141,7 +141,15 @@ app.post(`/users/login`, (req, res) => {
   }).catch((e) => {
     res.status(400).send();
   })
-})
+});
+
+app.delete(`/users/me/token`, authenticate, (req, res) => {
+  req.user.removeToken(req.token).then(() => {
+    res.status(200).send();
+  }, () => {
+    res.status(400).send();
+  });
+});
 
 
 

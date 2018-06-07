@@ -54,6 +54,39 @@ UserSchema.methods.generateAuthToken = function () {
   });
 };
 
+UserSchema.methods.removeToken = function (token) {
+  let user = this;
+  // The $pull operator removes from an existing array all instances of
+  // a value or values that match a specified condition.
+  // In this case we are removing the array elements that match the 'token' variable passed into the funtion.
+  return user.update({
+    $pull: {
+      tokens:{
+        token: token
+      }
+    }
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 UserSchema.statics.findByToken = function (token) {
   // Get called with model becuse its a static
   let User = this;
